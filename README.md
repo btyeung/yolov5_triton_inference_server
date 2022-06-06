@@ -19,9 +19,31 @@ git clone -b v5.0 https://github.com/ultralytics/yolov5.git
 git clone -b yolov5-v5.0 https://github.com/wang-xinyu/tensorrtx.git
 
 ```
-## Create *.wts file  
-Open new terminal 
+
+v6
 ```
+#in root of git repo here... 
+git clone -b v6.0 https://github.com/ultralytics/yolov5.git
+#no specific v6 branch here, so run as is...
+git clone https://github.com/wang-xinyu/tensorrtx.git
+
+```
+
+## To download v6 weight file if you're not working with an existing one
+
+```
+#enter cloned yolov5 dir
+cd yolov5   
+#run curl optionally to get a specific weight file into yolov5 root
+wget https://github.com/ultralytics/yolov5/releases/download/v6.0/yolov5s.pt
+
+```
+
+## Create *.wts file  
+Reference this in case https://github.com/wang-xinyu/tensorrtx/tree/master/yolov5#different-versions-of-yolov5
+
+```
+# Open new terminal 
 cd yourworkingdirectoryhere  
 cp tensorrtx/yolov5/gen_wts.py yolov5  
 cd yolov5  
@@ -30,6 +52,7 @@ cd /yolov5
 conda activate yolov5  
 python gen_wts.py -w yolov5s.pt -o yolov5s.wts
 ```
+
 ## Create engine (TRT *.engine) engine file  
 Open new terminal  
 ```
@@ -41,7 +64,7 @@ cd /yolov5
 mkdir build  
 cd build   
 cmake ..  
-make -j16  
+make -j16  #you'll see warnings but "Built target yolov5" indicates success
 ./yolov5 -s ../yolov5s.wts ../yolov5s.engine s  
 ```
 ## Create Triton Inference Server  
@@ -55,7 +78,7 @@ cp tensorrtx/yolov5/build/libmyplugins.so triton_deploy/plugins/libmyplugins.so
 ```
 
 
-Run Triron
+Run Triton
 ```
 docker run \
 --gpus all \
@@ -77,6 +100,8 @@ Open new terminal
 cd yourworkingdirectoryhere   
 cd clients/yolov5
 docker run -it --rm --gpus all --network host -v $PWD:/client tienln/ubuntu:18.04_conda /bin/bash  
+# was missing in original docker file
+apt-get update -y && apt-get install -y gcc g++
 conda activate yolov5  
 pip install tritonclient  
 cd /client
