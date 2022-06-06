@@ -4,6 +4,9 @@ First of all, I would like to thank [wang-xinyu](https://github.com/wang-xinyu/t
 My repo was heavily based on both of these repositories.  
 This repo implemented YOLOV5 based on Tensorrt engine and Triton Inference Server
 
+### v6 Notes
+Some instructions have been modified to accomodate v6.0, around June 2022 
+
 # How to run
 ## Dowload docker image to create engine file
 ```
@@ -20,17 +23,16 @@ git clone -b yolov5-v5.0 https://github.com/wang-xinyu/tensorrtx.git
 
 ```
 
-v6
+(use this instead if yoloV5 (v6.0)
 ```
-#in root of git repo here... 
+# in root of git repo here... 
 git clone -b v6.0 https://github.com/ultralytics/yolov5.git
-#no specific v6 branch here, so run as is...
+# no specific v6 branch here, so run as is...
 git clone https://github.com/wang-xinyu/tensorrtx.git
 
 ```
 
 ## To download v6 weight file if you're not working with an existing one
-
 ```
 #enter cloned yolov5 dir
 cd yolov5   
